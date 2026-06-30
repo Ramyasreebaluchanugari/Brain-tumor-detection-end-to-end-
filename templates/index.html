@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brain Tumor Detection Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="header">
+    <h1>= Brain Tumor Detection Dashboard</h1>
+</div>
+
+<div class="cards">
+
+    <div class="card">
+        <h2>7200</h2>
+        <p>Total Images</p>
+    </div>
+
+    <div class="card">
+        <h2>4</h2>
+        <p>Classes</p>
+    </div>
+
+    <div class="card">
+        <h2>81.71%</h2>
+        <p>Model Accuracy</p>
+    </div>
+
+    <div class="card">
+        <h2>CNN</h2>
+        <p>Model Used</p>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <h2>Upload MRI Image</h2>
+
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+
+        <input type="file" name="image" required>
+
+        <br>
+
+        <input type="submit" value="Predict">
+
+    </form>
+
+    {% if prediction %}
+
+    <div class="result">
+
+        <h2>Prediction : {{ prediction }}</h2>
+
+<h3>Confidence : {{ confidence }} %</h3>
+
+<h3>{{ message }}</h3>
+
+<img src="{{ image }}" width="300">
+
+
+    </div>
+
+    {% endif %}
+
+    <hr>
+
+    <h2>Dataset Information</h2>
+
+    <ul>
+        <li><strong>Dataset:</strong> Brain MRI Dataset (Kaggle)</li>
+        <li><strong>Total Images:</strong> 7200</li>
+        <li><strong>Classes:</strong> Glioma, Meningioma, No Tumor, Pituitary</li>
+        <li><strong>Image Size:</strong> 224 × 224</li>
+        <li><strong>Framework:</strong> TensorFlow / Keras</li>
+        <li><strong>Backend:</strong> Flask (Python)</li>
+        <li><strong>Frontend:</strong> HTML + CSS</li>
+    </ul>
+
+</div>
+
+</body>
+</html>
+
+
+#for Graphs
+
+<hr>
+
+<h2>📈 Model Performance</h2>
+
+<div style="display:flex; justify-content:space-around; flex-wrap:wrap;">
+
+    <div>
+        <h3>Accuracy Graph</h3>
+        <img src="{{ url_for('static', filename='accuracy.png') }}"
+             width="450"
+             alt="Accuracy Graph">
+    </div>
+
+    <div>
+        <h3>Loss Graph</h3>
+        <img src="{{ url_for('static', filename='loss.png') }}"
+             width="450"
+             alt="Loss Graph">
+    </div>
+
+</div>
+
